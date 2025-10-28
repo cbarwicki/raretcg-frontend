@@ -1,10 +1,14 @@
-// import axios from "axios";
+import axios from "axios";
+import { useEffect } from "react";
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   // const fetchCards = async () => {
-  //   let fetchedCards: unknown[] = [];
+  //   let fetchedCards: any[] = [];
   //   let hasMore = true;
   //   let page = 1;
+  //
   //   try {
   //     while (hasMore) {
   //       const { data } = await axios.get("https://api.pokemontcg.io/v2/cards", {
@@ -15,22 +19,36 @@ export default function Home() {
   //           page,
   //         },
   //       });
-  //       fetchedCards = [...fetchedCards, ...data.data];
+  //       // Filter/map the data to match your schema
+  //       const filteredCards = data.data.map((card: any) => ({
+  //         id: card.id,
+  //         name: card.name,
+  //         supertype: card.supertype,
+  //         set_name: card.set?.name || "", // optional chaining
+  //         rarity: card.rarity || "",
+  //         images: {
+  //           small: card.images?.small || "",
+  //           large: card.images?.large || "",
+  //         },
+  //         price: 20000, // fixed value
+  //       }));
+  //
+  //       fetchedCards = [...fetchedCards, ...filteredCards];
   //       hasMore = page * 250 < data.totalCount;
   //       page++;
   //     }
   //   } catch (error) {
-  //     console.error("", error);
+  //     console.error(error);
   //   }
-  //   console.log(fetchedCards)
-  // }
-  // useEffect(() => {
-  //   fetchCards()
-  // }, [])
+  //   console.log(fetchedCards);
+  //   return fetchedCards;
+  // };
+  useEffect(() => {
+  }, [])
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-yellow-200 to-yellow-100 dark:from-yellow-600 dark:to-yellow-400">
+      <section className="py-20 relative overflow-hidden bg-gradient-to-b from-yellow-200 to-yellow-100 dark:from-yellow-600 dark:to-yellow-400">
         <div className="max-w-6xl mx-auto px-6 py-24 text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-gray-900 drop-shadow-sm">
             Catch Rare Cards <br /> Build Legendary Decks
@@ -39,12 +57,12 @@ export default function Home() {
             Buy, sell, and trade authentic Pokémon TCG cards — from the classics to the latest sets.
           </p>
           <div className="flex justify-center gap-4">
-            <a
-              href="#collections"
+            <Link
+              to="/cards"
               className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold transition"
             >
               Browse Collections
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -71,7 +89,7 @@ export default function Home() {
       {/* </section> */}
 
       {/* FEATURED / TRENDING */}
-      <section id="shop" className="bg-gray-100 dark:bg-gray-800 py-20">
+      <section id="shop" className="bg-gray-100 dark:bg-gray-800 py-10">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-10">🔥 Trending Cards</h2>
           <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
@@ -96,7 +114,7 @@ export default function Home() {
       </section>
 
       {/* TRUST / ABOUT SECTION */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+      <section className="max-w-6xl mx-auto px-6 py-5">
         <h2 className="text-3xl font-bold text-center mb-10">Why Trainers Choose Us</h2>
         <div className="grid gap-8 md:grid-cols-4 text-center">
           {[
@@ -134,15 +152,7 @@ export default function Home() {
       {/*   </form> */}
       {/* </section> */}
 
-      {/* FOOTER */}
-      <footer className="bg-gray-900 text-gray-400 text-center py-8 mt-10">
-        <p>&copy; {new Date().getFullYear()} PokéMart. All rights reserved.</p>
-        <div className="mt-2 space-x-4">
-          <a href="#" className="hover:text-white">Privacy</a>
-          <a href="#" className="hover:text-white">Terms</a>
-          <a href="#" className="hover:text-white">Contact</a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

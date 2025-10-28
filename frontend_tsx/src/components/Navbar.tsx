@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -11,12 +12,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
+    <nav className="py-4 bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo / Brand */}
-        <a href="#home" className="text-xl font-bold text-indigo-600">
+        <Link to="/" className="text-xl font-bold text-indigo-600">
           RareTCG
-        </a>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6">
