@@ -1,8 +1,8 @@
 import Card from "../../components/Card";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Card {
   images: {
@@ -17,23 +17,32 @@ interface Card {
   price: number,
 }
 const CardPage = () => {
+  const cards = ['https://images.pokemontcg.io/sv6/200_hires.png',
+    'https://images.pokemontcg.io/sv6/217_hires.png',
+    'https://images.pokemontcg.io/sv6/221_hires.png',
+    'https://images.pokemontcg.io/sv6/214_hires.png',
+  ]
 
   const cardData = useLoaderData() as Card
 
-  if (!cardData) {
-    return (
-      <div>Loading...</div>
-    )
-  }
+
   const [quantity, setQuantity] = useState(1);
 
   const increment = () => setQuantity(prev => prev + 1);
   const decrement = () => setQuantity(prev => Math.max(prev - 1, 1)); // min 1
+  useEffect(() => {
+    const loader = useLoaderData()
+    const navigate = useNavigate()
+    if (loader.redirectTo) {
+      console.log(loader.redirectTo)
+      navigate('/login')
+    }
+  }, [])
   return (
     <div className="">
       <Navbar />
       <div className="bg-zinc-900 pt-20">
-        <div className="flex items-center justify-evenly pb-20">
+        <div className="flex items-center justify-evenly pb-10">
           <section className="">
             <Card images={cardData.images.large} name={cardData.name} />
           </section>
@@ -68,23 +77,21 @@ const CardPage = () => {
             </div>
           </section>
         </div>
-        <section id="shop" className="bg-gray-100 dark:bg-gray-800 py-10">
+        <section id="shop" className="bg-gray-100 dark:bg-gray-800 py-5">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center mb-10">You may also like </h2>
+            <h2 className="text-3xl font-bold text-center mb-10">You May Also Like</h2>
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-              {[1, 2, 3, 4].map((n) => (
+              {cards.map((card, index) => (
                 <div
-                  key={n}
+                  key={index}
                   className="bg-white dark:bg-gray-900 rounded-xl shadow hover:scale-105 transition-transform"
                 >
                   <img
-                    src={`/images/card${n}.jpg`}
-                    alt={`Card ${n}`}
-                    className="w-full h-56 object-cover rounded-t-xl"
+                    src={card}
+                    className="w-full h-auto object-cover rounded-t-xl"
                   />
                   <div className="p-4 text-center">
-                    <p className="font-semibold">Charizard EX</p>
-                    <p className="text-indigo-600 font-bold mt-1">$49.99</p>
+                    <p className="text-white text-xl font-bold mt-1">$49.99</p>
                   </div>
                 </div>
               ))}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
@@ -43,8 +43,11 @@ export default function Home() {
   //   console.log(fetchedCards);
   //   return fetchedCards;
   // };
-  useEffect(() => {
-  }, [])
+  const cards = ['https://images.pokemontcg.io/sv6/200_hires.png',
+    'https://images.pokemontcg.io/sv6/217_hires.png',
+    'https://images.pokemontcg.io/sv6/221_hires.png',
+    'https://images.pokemontcg.io/sv6/214_hires.png',
+  ]
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* HERO SECTION */}
@@ -66,46 +69,22 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* FEATURED COLLECTIONS */}
-      {/* <section id="collections" className="max-w-6xl mx-auto px-6 py-20"> */}
-      {/*   <h2 className="text-3xl font-bold text-center mb-10">Explore Collections</h2> */}
-      {/*   <div className="grid gap-8 md:grid-cols-4"> */}
-      {/*     {[ */}
-      {/*       { title: "Booster Boxes", img: "/images/booster.jpg" }, */}
-      {/*       { title: "Singles", img: "/images/singles.jpg" }, */}
-      {/*       { title: "Accessories", img: "/images/accessories.jpg" }, */}
-      {/*       { title: "Preorders", img: "/images/preorders.jpg" }, */}
-      {/*     ].map((col) => ( */}
-      {/*       <div */}
-      {/*         key={col.title} */}
-      {/*         className="bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-lg transition overflow-hidden cursor-pointer" */}
-      {/*       > */}
-      {/*         <img src={col.img} alt={col.title} className="w-full h-48 object-cover" /> */}
-      {/*         <div className="p-4 text-center font-semibold">{col.title}</div> */}
-      {/*       </div> */}
-      {/*     ))} */}
-      {/*   </div> */}
-      {/* </section> */}
-
       {/* FEATURED / TRENDING */}
       <section id="shop" className="bg-gray-100 dark:bg-gray-800 py-10">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-10">🔥 Trending Cards</h2>
           <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-            {[1, 2, 3, 4].map((n) => (
+            {cards.map((card, index) => (
               <div
-                key={n}
+                key={index}
                 className="bg-white dark:bg-gray-900 rounded-xl shadow hover:scale-105 transition-transform"
               >
                 <img
-                  src={`/images/card${n}.jpg`}
-                  alt={`Card ${n}`}
-                  className="w-full h-56 object-cover rounded-t-xl"
+                  src={card}
+                  className="w-full h-auto object-cover rounded-t-xl"
                 />
                 <div className="p-4 text-center">
-                  <p className="font-semibold">Charizard EX</p>
-                  <p className="text-indigo-600 font-bold mt-1">$49.99</p>
+                  <p className="text-white text-xl font-bold mt-1">$49.99</p>
                 </div>
               </div>
             ))}
@@ -114,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* TRUST / ABOUT SECTION */}
-      <section className="max-w-6xl mx-auto px-6 py-5">
+      <section className="max-w-6xl mx-auto px-6 py-6">
         <h2 className="text-3xl font-bold text-center mb-10">Why Trainers Choose Us</h2>
         <div className="grid gap-8 md:grid-cols-4 text-center">
           {[

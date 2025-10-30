@@ -1,6 +1,3 @@
-// CardImage.jsx
-import React from "react";
-
 const CardImage = ({ images, name }: { images: string, name: string }) => {
   if (!images) return null;
 

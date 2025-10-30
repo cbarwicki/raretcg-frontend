@@ -1,4 +1,36 @@
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 export default function Login() {
+  const [error, setError] = useState({
+    email: '',
+    password: ''
+  })
+
+  const navigate = useNavigate()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError({ email: '', password: '' });
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get("email")
+    const password = formData.get("password")
+    try {
+      const response = await axios.post('http://localhost:8000/api/auth/login',
+        { email, password },
+        { withCredentials: true })
+      navigate("/")
+      console.log(response.data)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(prev => ({
+          email: error.response?.data.email || "",
+          password: error.response?.data.password || ""
+        }));
+      }
+    }
+
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-md">
@@ -6,10 +38,7 @@ export default function Login() {
           Login
         </h1>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Login submitted (UI only)");
-          }}
+          onSubmit={handleSubmit}
           className="space-y-5"
         >
           <div>
@@ -18,9 +47,9 @@ export default function Login() {
               type="email"
               name="email"
               required
-              placeholder="trainer@pokemon.com"
               className="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            <p className="text-red-400">{error.email}</p>
           </div>
 
           <div>
@@ -32,6 +61,7 @@ export default function Login() {
               placeholder="••••••••"
               className="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            <p className="text-red-400">{error.password}</p>
           </div>
 
           <div className="flex items-center justify-between text-sm">
@@ -54,9 +84,9 @@ export default function Login() {
 
         <p className="text-sm text-center mt-6 text-gray-600 dark:text-gray-300">
           New here?{" "}
-          <a href="#" className="text-indigo-600 hover:underline font-semibold">
+          <Link to="/signup" className="text-indigo-600 hover:underline font-semibold">
             Create an account
-          </a>
+          </Link>
         </p>
       </div>
     </div>
